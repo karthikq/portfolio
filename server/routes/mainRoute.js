@@ -20,16 +20,15 @@ route.get("/", (req, res) => {
 
 route.post("/contact", async (req, res) => {
   const { first_name, last_name, email, message } = req.body;
-  console.log(email);
 
   transporter
     .sendMail({
       from: "karthikemail99@gmail.com",
       to: email,
       subject: "contact@karthikjs",
-      html: "<h2>Thanks for contacting Karthik</h2> <p>I will be in contact with you shortly</p> <p>Thanks</p>",
+      html: "<h2>Thanks for contacting Karthik</h2> <h4>I will be in contact with you shortly</h4> <p>Thanks</p>",
     })
-    .then(async (res) => {
+    .then(async (result) => {
       try {
         const newContact = await db.query(
           "INSERT INTO contact_details(first_name,last_name,email,message,created_at) VALUES($1,$2,$3,$4,CURRENT_TIMESTAMP) RETURNING *",
